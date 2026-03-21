@@ -39,3 +39,13 @@
 
 # debug information files
 *.dwo
+
+# -----------------------------------------------
+# Proyecto 4 - Archivos excluidos del repositorio
+# -----------------------------------------------
+# Backup del archivo de práctica (no se comparte)
+proyecto4_backup.cpp
+
+# Binarios compilados generados por g++
+proyecto4
+proyecto4.exe
