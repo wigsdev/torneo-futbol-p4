@@ -131,6 +131,16 @@ void mostrarMenu() {
 // ------------------------------------------------------------
 void registrarEquipo() {
     // TODO: Wilmer - escribe tu código aquí
+    if (numEquipos < MAX_EQUIPOS) {
+        cout << "Ingrese el nombre del equipo: ";
+        cin >> equipos[numEquipos].nombre;
+        numEquipos++;
+        cout << "Equipo registrado exitosamente." << endl;
+    } else {
+        cout << "No se pueden registrar mas equipos." << endl;
+    }
+
+
 
 
 
