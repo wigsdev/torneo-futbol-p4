@@ -12,7 +12,8 @@
  *  - Miriam Huamán    → mostrarTabla()
  *
  *  REQUERIMIENTOS TÉCNICOS:
- *  const | variables globales y locales | if-else | switch | for | while | do-while
+ *  const | variables globales y locales | if-else | switch | for | while |
+ * do-while
  *
  *  CONCEPTOS ADICIONALES (ver funciones.md):
  *  struct | arreglos | funciones
@@ -40,14 +41,14 @@ const int MAX_EQUIPOS = 10;
 //  gf = Goles a Favor       gc = Goles en Contra
 // ============================================================
 struct Equipo {
-    string nombre;
-    int pj = 0;
-    int pg = 0;
-    int pe = 0;
-    int pp = 0;
-    int gf = 0;
-    int gc = 0;
-    int puntos = 0;
+  string nombre;
+  int pj = 0;
+  int pg = 0;
+  int pe = 0;
+  int pp = 0;
+  int gf = 0;
+  int gc = 0;
+  int puntos = 0;
 };
 
 // ============================================================
@@ -65,11 +66,11 @@ int numEquipos = 0;
 //  Declaración anticipada. Van ANTES del main().
 // ============================================================
 void mostrarMenu();
-void registrarEquipo();     // Wilmer
-void registrarPartido();    // Marco
-void mostrarTabla();        // Miriam
-void buscarEquipo();        // Wilmer
-void mostrarCampeon();      // Marco
+void registrarEquipo();  // Wilmer
+void registrarPartido(); // Marco
+void mostrarTabla();     // Miriam
+void buscarEquipo();     // Wilmer
+void mostrarCampeon();   // Marco
 
 // ============================================================
 //  main(): controla el flujo del programa.
@@ -78,25 +79,38 @@ void mostrarCampeon();      // Marco
 // ============================================================
 int main() {
 
-    int opcion; // Variable LOCAL
+  int opcion; // Variable LOCAL
 
-    do {
-        mostrarMenu();
-        cin >> opcion;
+  do {
+    mostrarMenu();
+    cin >> opcion;
 
-        switch (opcion) {
-            case 1: registrarEquipo();  break;
-            case 2: registrarPartido(); break;
-            case 3: mostrarTabla();     break;
-            case 4: buscarEquipo();     break;
-            case 5: mostrarCampeon();   break;
-            case 0: cout << "\nSaliendo del sistema..." << endl; break;
-            default: cout << "\nOpcion invalida. Intente de nuevo." << endl;
-        }
+    switch (opcion) {
+    case 1:
+      registrarEquipo();
+      break;
+    case 2:
+      registrarPartido();
+      break;
+    case 3:
+      mostrarTabla();
+      break;
+    case 4:
+      buscarEquipo();
+      break;
+    case 5:
+      mostrarCampeon();
+      break;
+    case 0:
+      cout << "\nSaliendo del sistema..." << endl;
+      break;
+    default:
+      cout << "\nOpcion invalida. Intente de nuevo." << endl;
+    }
 
-    } while (opcion != 0);
+  } while (opcion != 0);
 
-    return 0;
+  return 0;
 }
 
 // ============================================================
@@ -109,14 +123,14 @@ int main() {
 //  mostrarMenu() — YA ESTÁ COMPLETA, no modificar.
 // ------------------------------------------------------------
 void mostrarMenu() {
-    cout << "\n=== SIMULADOR DE TORNEO DE FUTBOL ===" << endl;
-    cout << "1. Registrar equipo" << endl;
-    cout << "2. Registrar partido" << endl;
-    cout << "3. Mostrar tabla de posiciones" << endl;
-    cout << "4. Buscar equipo" << endl;
-    cout << "5. Mostrar campeon" << endl;
-    cout << "0. Salir" << endl;
-    cout << "Seleccione: ";
+  cout << "\n=== SIMULADOR DE TORNEO DE FUTBOL ===" << endl;
+  cout << "1. Registrar equipo" << endl;
+  cout << "2. Registrar partido" << endl;
+  cout << "3. Mostrar tabla de posiciones" << endl;
+  cout << "4. Buscar equipo" << endl;
+  cout << "5. Mostrar campeon" << endl;
+  cout << "0. Salir" << endl;
+  cout << "Seleccione: ";
 }
 
 // ------------------------------------------------------------
@@ -130,20 +144,15 @@ void mostrarMenu() {
 //  3. Si no hay espacio: muestra un mensaje de error
 // ------------------------------------------------------------
 void registrarEquipo() {
-    // TODO: Wilmer - escribe tu código aquí
-    if (numEquipos < MAX_EQUIPOS) {
-        cout << "Ingrese el nombre del equipo: ";
-        cin >> equipos[numEquipos].nombre;
-        numEquipos++;
-        cout << "Equipo registrado exitosamente." << endl;
-    } else {
-        cout << "No se pueden registrar mas equipos." << endl;
-    }
-
-
-
-
-
+  // TODO: Wilmer - escribe tu código aquí
+  if (numEquipos < MAX_EQUIPOS) {
+    cout << "Ingrese el nombre del equipo: ";
+    cin >> equipos[numEquipos].nombre;
+    numEquipos++;
+    cout << "Equipo registrado exitosamente." << endl;
+  } else {
+    cout << "No se pueden registrar mas equipos." << endl;
+  }
 }
 
 // ------------------------------------------------------------
@@ -163,10 +172,13 @@ void registrarEquipo() {
 //     g1 == g2 → Empate (+1 pt cada uno)
 // ------------------------------------------------------------
 void registrarPartido() {
-    // TODO: Marco - escribe tu código aquí
-
-
-
+  // TODO: Marco - escribe tu código aquí
+  int equipo1, equipo2;
+  cout << "=== Registro de partidos ===" << endl;
+  cout << "elige una opcion para ejecutar\n 1. registrar equipo 1 " << endl;
+  cin >> equipo1;
+  cout << "elige una opcion para ejecutar\n 2. registrar equipo 2 " << endl;
+  cin >> equipo2;
 }
 
 // ------------------------------------------------------------
@@ -180,10 +192,7 @@ void registrarPartido() {
 //  4. Usa '\t' (tabulador) para separar columnas y alinearlas
 // ------------------------------------------------------------
 void mostrarTabla() {
-    // TODO: Miriam - escribe tu código aquí
-
-
-
+  // TODO: Miriam - escribe tu código aquí
 }
 
 // ------------------------------------------------------------
@@ -201,12 +210,9 @@ void mostrarTabla() {
 //  6. Si !encontrado al salir, muestra "No encontrado"
 // ------------------------------------------------------------
 void buscarEquipo() {
-    // TODO: Wilmer - escribe tu código aquí
-    // Nota: 'bool' es el tipo de dato para valores true/false,
-    // se vio en clase como tipo de dato básico de C++.
-
-
-
+  // TODO: Wilmer - escribe tu código aquí
+  // Nota: 'bool' es el tipo de dato para valores true/false,
+  // se vio en clase como tipo de dato básico de C++.
 }
 
 // ------------------------------------------------------------
@@ -221,8 +227,5 @@ void buscarEquipo() {
 //  6. Muestra el nombre y los puntos del campeón
 // ------------------------------------------------------------
 void mostrarCampeon() {
-    // TODO: Marco - escribe tu código aquí
-
-
-
+  // TODO: Marco - escribe tu código aquí
 }
