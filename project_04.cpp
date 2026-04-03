@@ -23,6 +23,14 @@ int e3_pj = 0, e3_pg = 0, e3_pe = 0, e3_pp = 0, e3_gf = 0, e3_gc = 0, e3_puntos 
 string e4_nombre = "";
 int e4_pj = 0, e4_pg = 0, e4_pe = 0, e4_pp = 0, e4_gf = 0, e4_gc = 0, e4_puntos = 0;
 
+// partidos jugados
+bool jugado_1_2 = false;
+bool jugado_1_3 = false;
+bool jugado_1_4 = false;
+bool jugado_2_3 = false;
+bool jugado_2_4 = false;
+bool jugado_3_4 = false;
+
 int main() {
     int opcion;
 
@@ -108,6 +116,8 @@ int main() {
                     break;
                 }
                 // Mostrar equipos disponibles
+
+                cout << "=== EQUIPOS REGISTRADOS ===" << endl;
                 if (numEquipos >= 1) {
                     cout << "1. " << e1_nombre << endl;
                 }
@@ -121,6 +131,88 @@ int main() {
                     cout << "4. " << e4_nombre << endl;
                 }
 
+                cout << "=== FIXTURE DEL TORNEO ===" << endl;
+                // si se registraron 2 equipos
+                if (numEquipos == 2) {
+                    cout << "------------------------------------" << endl;
+                    cout << "Nº | Equipo 1 \t| Equipo 2 \t| STATUS \t|" << endl;
+                    cout << "------------------------------------" << endl;
+                    if (jugado_1_2 == true) {
+                       cout<< "1. | " << e1_nombre << "\t| " << e2_nombre << "\t| Jugado \t|" << endl; 
+                    } else {
+                        cout<< "1. | " << e1_nombre << "\t| " << e2_nombre << "\t| Pendiente \t|" << endl;
+                    }
+                
+                // si se registraron 3 equipos                    
+                } else if (numEquipos == 3) {
+                    cout << "------------------------------------" << endl;
+                    cout << "Nº | Equipo 1 \t| Equipo 2 \t| STATUS \t|" << endl;
+                    cout << "------------------------------------" << endl;
+                    // partido 1 vs 2
+                    if (jugado_1_2 == true) {
+                       cout<< "1. | " << e1_nombre << "\t| " << e2_nombre << "\t| Jugado \t|" << endl; 
+                    } else {
+                        cout<< "1. | " << e1_nombre << "\t| " << e2_nombre << "\t| Pendiente \t|" << endl;
+                    }
+                    // partido 1 vs 3
+                    if (jugado_1_3 == true) {
+                       cout<< "2. | " << e1_nombre << "\t| " << e3_nombre << "\t| Jugado \t|" << endl; 
+                    } else {
+                        cout<< "2. | " << e1_nombre << "\t| " << e3_nombre << "\t| Pendiente \t|" << endl;
+                    }
+                    // partido 2 vs 3
+
+                    if (jugado_2_3 == true) {
+                       cout<< "3. | " << e2_nombre << "\t| " << e3_nombre << "\t| Jugado \t|" << endl; 
+                    } else {
+                        cout<< "3. | " << e2_nombre << "\t| " << e3_nombre << "\t| Pendiente \t|" << endl;
+                    }
+
+                // si se registraron 4 equipos
+                } else if (numEquipos == 4) {
+                    cout << "------------------------------------" << endl;
+                    cout << "Nº | Equipo 1 \t| Equipo 2 \t| STATUS \t|" << endl;
+                    cout << "------------------------------------" << endl;
+                    // partido 1 vs 2
+                    if (jugado_1_2 == true) {
+                       cout<< "1. | " << e1_nombre << "\t| " << e2_nombre << "\t| Jugado \t|" << endl; 
+                    } else {
+                        cout<< "1. | " << e1_nombre << "\t| " << e2_nombre << "\t| Pendiente \t|" << endl;
+                    }
+                    // partido 1 vs 3
+                    if (jugado_1_3 == true) {
+                       cout<< "2. | " << e1_nombre << "\t| " << e3_nombre << "\t| Jugado \t|" << endl; 
+                    } else {
+                        cout<< "2. | " << e1_nombre << "\t| " << e3_nombre << "\t| Pendiente \t|" << endl;
+                    }
+                    // partido 1 vs 4
+                    if (jugado_1_4 == true) {
+                       cout<< "3. | " << e1_nombre << "\t| " << e4_nombre << "\t| Jugado \t|" << endl; 
+                    } else {
+                        cout<< "3. | " << e1_nombre << "\t| " << e4_nombre << "\t| Pendiente \t|" << endl;
+                    }
+                    // partido 2 vs 3
+                    if (jugado_2_3 == true) {
+                       cout<< "4. | " << e2_nombre << "\t| " << e3_nombre << "\t| Jugado \t|" << endl; 
+                    } else {
+                        cout<< "4. | " << e2_nombre << "\t| " << e3_nombre << "\t| Pendiente \t|" << endl;
+                    }
+                    // partido 2 vs 4
+                    if (jugado_2_4 == true) {
+                       cout<< "5. | " << e2_nombre << "\t| " << e4_nombre << "\t| Jugado \t|" << endl; 
+                    } else {
+                        cout<< "5. | " << e2_nombre << "\t| " << e4_nombre << "\t| Pendiente \t|" << endl;
+                    }
+                    // partido 3 vs 4
+                    if (jugado_3_4 == true) {
+                       cout<< "6. | " << e3_nombre << "\t| " << e4_nombre << "\t| Jugado \t|" << endl; 
+                    } else {
+                        cout<< "6. | " << e3_nombre << "\t| " << e4_nombre << "\t| Pendiente \t|" << endl;
+                    }
+                
+                }
+
+
                 int indiceE1, indiceE2, golesE1, golesE2;
 
                 cout << "\nEquipo 1 (ingrese número): ";
@@ -128,11 +220,61 @@ int main() {
                 cout << "Equipo 2 (ingrese número): ";
                 cin >> indiceE2;
 
-                // Validad equipos
+                // Validad para no repetir partidos
 
                 if (indiceE1 < 1 || indiceE1 > numEquipos || indiceE2 < 1 || indiceE2 > numEquipos || indiceE1 == indiceE2) {
                     cout <<"Error en la seleccion de equipos";
                     break;
+                }
+
+                // Validar Cruce 1 vs 2 (o 2 vs 1)
+                if (indiceE1 == 1 && indiceE2 == 2 || indiceE1 == 2 && indiceE2 == 1) {
+                    if (jugado_1_2 == true) {
+                        cout << "Este partido ya se jugó" << endl;
+                        break;                   
+                    } else {
+                        jugado_1_2 = true;
+                    }
+ 
+                } else if (indiceE1 == 1 && indiceE2 == 3 || indiceE1 == 3 && indiceE2 == 1) {
+                    if (jugado_1_3 == true) {
+                        cout << "Este partido ya se jugó" << endl;
+                        break;                    
+                    } else {
+                        jugado_1_3 = true;
+                    }
+                } else if (indiceE1 == 1 && indiceE2 == 4 || indiceE1 == 4 && indiceE2 == 1) {
+                    if (jugado_1_4 == true) {
+                        cout << "Este partido ya se jugó" << endl;
+                        break;                    
+                    } else {
+                        jugado_1_4 = true;
+                    }
+
+                } else if (indiceE1 == 2 && indiceE2 == 3 || indiceE1 == 3 && indiceE2 == 2) {
+                    if (jugado_2_3 == true) {
+                        cout << "Este partido ya se jugó" << endl;
+                        break;                    
+                    } else {
+                        jugado_2_3 = true;
+                    }
+
+                } else if (indiceE1 == 2 && indiceE2 == 4 || indiceE1 == 4 && indiceE2 == 2) {
+                    if (jugado_2_4 == true) {
+                        cout << "Este partido ya se jugó" << endl;
+                        break;                    
+                    } else {
+                        jugado_2_4 = true;
+                    }
+
+                } else if (indiceE1 == 3 && indiceE2 == 4 || indiceE1 == 4 && indiceE2 == 3) {
+                    if (jugado_3_4 == true) {
+                        cout << "Este partido ya se jugó" << endl;
+                        break;                    
+                    } else {
+                        jugado_3_4 = true;
+                    }
+
                 }
 
                 cout << "Ingrese goles del equipo 1: ";
@@ -266,23 +408,88 @@ int main() {
             // Mejoras
             // 1. Ordenar la tabla de acuerdo a los puntos
             case 3: {
-                cout << "------------------------------------------------" << endl;
-                cout << "Equipo \t| PJ | PG | PE | PP | GF  | GC  | Puntos |" << endl;
-                cout << "------------------------------------------------" << endl;
-                if (numEquipos >= 1) {
-                    cout << e1_nombre << "\t| " << e1_pj << "  | " << e1_pg << "  | " << e1_pe << "  | " << e1_pp << "  | " << e1_gf << "  | " << e1_gc << "  | " << e1_puntos << "      | " << endl;              
-                }
-                if (numEquipos >= 2) { 
-                    cout << e2_nombre << "\t| " << e2_pj << "  | " << e2_pg << "  | " << e2_pe << "  | " << e2_pp << "  | " << e2_gf << "  | " << e2_gc << "  | " << e2_puntos << "      | " << endl;              
-                }
-                if (numEquipos >= 3) { 
-                    cout << e3_nombre << "\t| " << e3_pj << "  | " << e3_pg << "  | " << e3_pe << "  | " << e3_pp << "  | " << e3_gf << "  | " << e3_gc << "  | " << e3_puntos << "      | " << endl;              
-                }
-                if (numEquipos >= 4) { 
-                    cout << e4_nombre << "\t| " << e4_pj << "  | " << e4_pg << "  | " << e4_pe << "  | " << e4_pp << "  | " << e4_gf << "  | " << e4_gc << "  | " << e4_puntos << "      | " << endl;              
-                }
-                break;
-            }
+                int opcion;
+                do {
+                    cout << "1. MOSTRAR TABLA DE POCISIONES" << endl;
+                    cout << "0. SALIR" << endl;
+                    cin >> opcion;
+
+                    switch (opcion) {
+                        case 1: {
+                            int a, b, c, d, primer_puesto;
+                            a = e1_puntos;
+                            b = e2_puntos;
+                            c = e3_puntos;
+                            d = e4_puntos;
+                            primer_puesto = a;
+                            
+                            if (b > primer_puesto) {
+                                primer_puesto = b;
+                            }
+                             if (c > primer_puesto) {
+                                primer_puesto = c;
+                            }
+                            if (d > primer_puesto) {
+                                primer_puesto = d;
+                            }
+                            cout << "------------------------------------------------" << endl;
+                            cout << "Equipo \t| PJ | PG | PE | PP | GF  | GC  | Puntos |" << endl;
+                            cout << "------------------------------------------------" << endl;
+
+                            if (numEquipos == 2) {
+                                for (int i = primer_puesto; i >= 0; i--) {
+                                    if (i == e1_puntos) {
+                                        cout << e1_nombre << "\t| " << e1_pj << "  | " << e1_pg << "  | " << e1_pe << "  | " << e1_pp << "  | " << e1_gf << "  | " << e1_gc << "  | " << e1_puntos << "      | " << endl;              
+                                    }
+
+                                    if (i == e2_puntos) { 
+                                        cout << e2_nombre << "\t| " << e2_pj << "  | " << e2_pg << "  | " << e2_pe << "  | " << e2_pp << "  | " << e2_gf << "  | " << e2_gc << "  | " << e2_puntos << "      | " << endl;              
+                                    }
+                                }
+
+                            } 
+
+                            if (numEquipos == 3) {
+                                for (int i = primer_puesto; i >= 0; i--) {
+                                    if (i == e1_puntos) {
+                                        cout << e1_nombre << "\t| " << e1_pj << "  | " << e1_pg << "  | " << e1_pe << "  | " << e1_pp << "  | " << e1_gf << "  | " << e1_gc << "  | " << e1_puntos << "      | " << endl;              
+                                    }
+
+                                    if (i == e2_puntos) { 
+                                        cout << e2_nombre << "\t| " << e2_pj << "  | " << e2_pg << "  | " << e2_pe << "  | " << e2_pp << "  | " << e2_gf << "  | " << e2_gc << "  | " << e2_puntos << "      | " << endl;              
+                                    }
+
+                                    if (i == e3_puntos) { 
+                                        cout << e3_nombre << "\t| " << e3_pj << "  | " << e3_pg << "  | " << e3_pe << "  | " << e3_pp << "  | " << e3_gf << "  | " << e3_gc << "  | " << e3_puntos << "      | " << endl;              
+                                    }
+                                }
+                            }
+
+                            if (numEquipos == 4) {
+                                for (int i = primer_puesto; i >= 0; i--) {
+                                    if (i == e1_puntos) {
+                                        cout << e1_nombre << "\t| " << e1_pj << "  | " << e1_pg << "  | " << e1_pe << "  | " << e1_pp << "  | " << e1_gf << "  | " << e1_gc << "  | " << e1_puntos << "      | " << endl;              
+                                    }
+
+                                    if (i == e2_puntos) { 
+                                        cout << e2_nombre << "\t| " << e2_pj << "  | " << e2_pg << "  | " << e2_pe << "  | " << e2_pp << "  | " << e2_gf << "  | " << e2_gc << "  | " << e2_puntos << "      | " << endl;              
+                                    }
+
+                                    if (i == e3_puntos) { 
+                                        cout << e3_nombre << "\t| " << e3_pj << "  | " << e3_pg << "  | " << e3_pe << "  | " << e3_pp << "  | " << e3_gf << "  | " << e3_gc << "  | " << e3_puntos << "      | " << endl;              
+                                    }
+                                    if (i == e4_puntos) { 
+                                        cout << e4_nombre << "\t| " << e4_pj << "  | " << e4_pg << "  | " << e4_pe << "  | " << e4_pp << "  | " << e4_gf << "  | " << e4_gc << "  | " << e4_puntos << "      | " << endl;              
+                                    }
+                                }
+                            }                           
+                        }
+                        break;
+                        default:
+                        break;
+                    }
+                } while (opcion != 0);
+    } break;
 
             // ✅ CASO 4 - Buscar equipo
             // Requisitos:
