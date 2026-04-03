@@ -64,22 +64,26 @@ git checkout -b feature/HU-03-tabla-posiciones
 
 ## FASE 1: Estructura de Datos
 
-### Variables Globales y Constantes
-```
-CONSTANTE MAX_EQUIPOS = 10
+### Variables Globales (Sin usar ARREGLOS)
+```text
+CONSTANTE MAX_EQUIPOS = 4
+VARIABLE GLOBAL numEquipos = 0
 
-ESTRUCTURA Equipo:
-    nombre        (texto)
-    pj            (entero - partidos jugados)
-    pg            (entero - partidos ganados)
-    pe            (entero - partidos empatados)
-    pp            (entero - partidos perdidos)
-    gf            (entero - goles a favor)
-    gc            (entero - goles en contra)
-    puntos        (entero)
+// Variables Equipo 1
+string e1_nombre;
+int e1_pj, e1_pg, e1_pe, e1_pp, e1_gf, e1_gc, e1_puntos;
 
-VARIABLE GLOBAL equipos[MAX_EQUIPOS]   ← arreglo de equipos
-VARIABLE GLOBAL numEquipos = 0         ← contador de equipos registrados
+// Variables Equipo 2
+string e2_nombre;
+int e2_pj, e2_pg, e2_pe, e2_pp, e2_gf, e2_gc, e2_puntos;
+
+// Variables Equipo 3
+string e3_nombre;
+int e3_pj, e3_pg, e3_pe, e3_pp, e3_gf, e3_gc, e3_puntos;
+
+// Variables Equipo 4
+string e4_nombre;
+int e4_pj, e4_pg, e4_pe, e4_pp, e4_gf, e4_gc, e4_puntos;
 ```
 
 ---
@@ -111,19 +115,19 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A([INICIO]) --> B[Pedir nombre Equipo 1]
-    B --> C[Pedir nombre Equipo 2]
-    C --> D[Pedir goles Equipo 1]
-    D --> E[Pedir goles Equipo 2]
-    E --> F{¿Goles E1 > Goles E2?}
-    F -->|Sí| G[VICTORIA E1 / DERROTA E2]
-    F -->|No| H{¿Goles E1 < Goles E2?}
-    H -->|Sí| I[DERROTA E1 / VICTORIA E2]
-    H -->|No| J[EMPATE]
-    G --> K[Actualizar estadísticas]
-    I --> K
-    J --> K
-    K --> L([FIN])
+    A([INICIO]) --> B{¿numEquipos < 2?}
+    B -->|Sí| C[Mostrar Error: Faltan equipos]
+    C --> Z([FIN])
+    B -->|No| D[Mostrar listado de Equipos Registrados]
+    D --> E[Pedir índice Equipo 1]
+    E --> F[Pedir índice Equipo 2]
+    F --> G{¿El índice E1 o E2 es mayor a numEquipos o son iguales?}
+    G -->|Sí| H[Mostrar Error: Inválido]
+    H --> Z
+    G -->|No| I[Pedir Goles E1]
+    I --> J[Pedir Goles E2]
+    J --> K[Actualizar puntos y estadísticas]
+    K --> Z
 ```
 
 ---
@@ -134,12 +138,12 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A([INICIO]) --> B[Incrementar PJ del equipo]
+    A([INICIO]) --> B[Incrementar PJ del equipo 1 y 2]
     B --> C[Actualizar GF y GC]
     C --> D{¿Resultado?}
-    D -->|Victoria| E[PG++ / Puntos += 3]
-    D -->|Empate| F[PE++ / Puntos += 1]
-    D -->|Derrota| G[PP++ / Puntos += 0]
+    D -->|Victoria E1| E[E1: PG++, Puntos+=3 / E2: PP++]
+    D -->|Empate| F[E1 y E2: PE++, Puntos+=1]
+    D -->|Victoria E2| G[E1: PP++ / E2: PG++, Puntos+=3]
     E --> H([FIN])
     F --> H
     G --> H
@@ -151,124 +155,128 @@ flowchart TD
 
 > **Entregable 3 del proyecto**
 
-### 5.1 — Función: registrarEquipo()
-```
-FUNCIÓN registrarEquipo():
-    SI numEquipos >= MAX_EQUIPOS:
+### 5.1 — Lógica del CASO 1: Registrar Equipo
+```text
+CASO 1:
+    SI numEquipos >= MAX_EQUIPOS ENTONCES
         MOSTRAR "Límite de equipos alcanzado"
-        RETORNAR
+        ROMPER (break)
     
     LEER nombre del nuevo equipo
     
-    equipos[numEquipos].nombre  = nombre
-    equipos[numEquipos].pj      = 0
-    equipos[numEquipos].pg      = 0
-    equipos[numEquipos].pe      = 0
-    equipos[numEquipos].pp      = 0
-    equipos[numEquipos].gf      = 0
-    equipos[numEquipos].gc      = 0
-    equipos[numEquipos].puntos  = 0
-    
-    numEquipos++
-    MOSTRAR "Equipo registrado correctamente"
+    // Validación de nombres (en vez de arreglo, se usan IFs)
+    yaExiste = FALSO
+    SI numEquipos >= 1 Y nombre == e1_nombre ENTONCES yaExiste = VERDADERO
+    SI numEquipos >= 2 Y nombre == e2_nombre ENTONCES yaExiste = VERDADERO
+    SI numEquipos >= 3 Y nombre == e3_nombre ENTONCES yaExiste = VERDADERO
+    SI numEquipos >= 4 Y nombre == e4_nombre ENTONCES yaExiste = VERDADERO
+
+    SI yaExiste ENTONCES
+        MOSTRAR "Equipo ya registrado"
+    SINO
+        SI numEquipos == 0 ENTONCES
+            e1_nombre = nombre
+        SINO SI numEquipos == 1 ENTONCES
+            e2_nombre = nombre
+        SINO SI numEquipos == 2 ENTONCES
+            e3_nombre = nombre
+        SINO SI numEquipos == 3 ENTONCES
+            e4_nombre = nombre
+        
+        numEquipos++
+        MOSTRAR "Equipo registrado correctamente"
+        
+    ROMPER (break)
 ```
 
-### 5.2 — Función: registrarPartido() — Marco Chile
-```
-FUNCIÓN registrarPartido():
-    SI numEquipos < 2:
+### 5.2 — Lógica del CASO 2: Registrar Partido
+```text
+CASO 2:
+    SI numEquipos < 2 ENTONCES
         MOSTRAR "Se necesitan al menos 2 equipos"
-        RETORNAR
+        ROMPER (break)
 
-    MOSTRAR lista de equipos (con FOR)
+    MOSTRAR lista de equipos mediante (SI numEquipos >= X)
 
-    LEER nombreE1
-    LEER nombreE2
+    LEER indiceE1
+    LEER indiceE2
 
-    // Buscar índice del Equipo 1 con FOR
-    indice1 = -1
-    PARA i DESDE 0 HASTA numEquipos - 1:
-        SI equipos[i].nombre == nombreE1: indice1 = i
-
-    // Buscar índice del Equipo 2 con FOR
-    indice2 = -1
-    PARA i DESDE 0 HASTA numEquipos - 1:
-        SI equipos[i].nombre == nombreE2: indice2 = i
-
-    SI indice1 != -1 Y indice2 != -1 Y indice1 != indice2:
+    SI indiceE1 coincide con rango Y indiceE2 coincide con rango Y indice1 != indice2 ENTONCES
         LEER golesE1
         LEER golesE2
 
-        // Actualizar goles y partidos jugados
-        equipos[indice1].pj++     equipos[indice2].pj++
-        equipos[indice1].gf += golesE1
-        equipos[indice1].gc += golesE2
-        equipos[indice2].gf += golesE2
-        equipos[indice2].gc += golesE1
+        // Ejemplo: Si indiceE1 == 1, actualizar e1_pj, e1_gf, etc.
+        SI indiceE1 == 1 ENTONCES
+            e1_pj++ 
+            e1_gf += golesE1
+            e1_gc += golesE2
+            SI golesE1 > golesE2 ENTONCES e1_pg++; e1_puntos += 3
+            SINO SI golesE1 == golesE2 ENTONCES e1_pe++; e1_puntos += 1
+            SINO e1_pp++
+        SINO SI indiceE1 == 2 ENTONCES ... 
 
-        SI golesE1 > golesE2:        // Victoria E1
-            equipos[indice1].pg++
-            equipos[indice1].puntos += 3
-            equipos[indice2].pp++
-        SINO SI golesE1 < golesE2:   // Victoria E2
-            equipos[indice2].pg++
-            equipos[indice2].puntos += 3
-            equipos[indice1].pp++
-        SINO:                         // Empate
-            equipos[indice1].pe++    equipos[indice1].puntos += 1
-            equipos[indice2].pe++    equipos[indice2].puntos += 1
-    SINO:
+        // Repetir exactamente la misma lógica cruzada para indiceE2
+    SINO
         MOSTRAR "Equipo no encontrado o son el mismo"
+    ROMPER (break)
 ```
 
-### 5.3 — Función: mostrarTabla()
-```
-FUNCIÓN mostrarTabla():
-    MOSTRAR cabecera: "Equipo | PJ | PG | PE | PP | GF | GC | Pts"
+### 5.3 — Lógica del CASO 3: Mostrar Tabla
+```text
+CASO 3:
+    MOSTRAR cabecera: "Equipo | PJ | PG | PE | PP | GF | GC | Puntos"
     
-    PARA i DESDE 0 HASTA numEquipos - 1:
-        MOSTRAR equipos[i].nombre, equipos[i].pj, equipos[i].pg,
-                equipos[i].pe, equipos[i].pp, equipos[i].gf,
-                equipos[i].gc, equipos[i].puntos
+    SI numEquipos >= 1 ENTONCES 
+        MOSTRAR e1_nombre, e1_pj, e1_pg, e1_pe, e1_pp, e1_gf, e1_gc, e1_puntos
+    SI numEquipos >= 2 ENTONCES
+        MOSTRAR e2_nombre, e2_pj, e2_pg, e2_pe, e2_pp, e2_gf, e2_gc, e2_puntos
+    SI numEquipos >= 3 ENTONCES
+        MOSTRAR e3_nombre ...
+    SI numEquipos >= 4 ENTONCES
+        MOSTRAR e4_nombre ...
+    ROMPER (break)
 ```
 
-### 5.4 — Función: buscarEquipo()
-```
-FUNCIÓN buscarEquipo():
+### 5.4 — Lógica del CASO 4: Buscar Equipo
+```text
+CASO 4:
     LEER nombreBuscado
     encontrado = FALSO
     
-    i = 0
-    MIENTRAS i < numEquipos Y NO encontrado:
-        SI equipos[i].nombre == nombreBuscado:
-            MOSTRAR datos del equipo
-            encontrado = VERDADERO
-        i++
+    SI numEquipos >= 1 Y nombreBuscado == e1_nombre ENTONCES
+        MOSTRAR datos e1_nombre
+        encontrado = VERDADERO
+    SINO SI numEquipos >= 2 Y nombreBuscado == e2_nombre ENTONCES
+        MOSTRAR datos e2_nombre
+        encontrado = VERDADERO
+    ... (hasta 4)
     
-    SI NO encontrado:
+    SI NO encontrado ENTONCES
         MOSTRAR "Equipo no encontrado"
+    ROMPER (break)
 ```
 
-### 5.5 — Función: mostrarCampeon()
-```
-FUNCIÓN mostrarCampeon():
-    SI numEquipos == 0:
+### 5.5 — Lógica del CASO 5: Mostrar Campeón
+```text
+CASO 5:
+    SI numEquipos == 0 ENTONCES
         MOSTRAR "No hay equipos registrados"
-        RETORNAR
+        ROMPER (break)
     
-    indiceCampeon = 0
+    campeon_nombre = e1_nombre; max_puntos = e1_puntos
     
-    PARA i DESDE 1 HASTA numEquipos - 1:
-        SI equipos[i].puntos > equipos[indiceCampeon].puntos:
-            indiceCampeon = i
+    SI numEquipos >= 2 Y e2_puntos > max_puntos ENTONCES campeon_nombre = e2_nombre; max_puntos = e2_puntos
+    SI numEquipos >= 3 Y e3_puntos > max_puntos ENTONCES campeon_nombre = e3_nombre; max_puntos = e3_puntos
+    SI numEquipos >= 4 Y e4_puntos > max_puntos ENTONCES campeon_nombre = e4_nombre; max_puntos = e4_puntos
     
-    MOSTRAR "🏆 Campeón: " + equipos[indiceCampeon].nombre
-    MOSTRAR "Puntos: " + equipos[indiceCampeon].puntos
+    MOSTRAR "🏆 Campeón: " + campeon_nombre
+    MOSTRAR "Puntos: " + max_puntos
+    ROMPER (break)
 ```
 
-### 5.6 — Función Principal: main()
-```
-FUNCIÓN main():
+### 5.6 — Estructura Principal: do-while y switch
+```text
+PROGRAMA PRINCIPAL:
     opcion = -1
     
     HACER:
@@ -276,13 +284,13 @@ FUNCIÓN main():
         LEER opcion
         
         SEGÚN opcion:
-            CASO 1: registrarEquipo()
-            CASO 2: registrarPartido()
-            CASO 3: mostrarTabla()
-            CASO 4: buscarEquipo()
-            CASO 5: mostrarCampeon()
-            CASO 0: MOSTRAR "¡Hasta luego!"
-            POR DEFECTO: MOSTRAR "Opción inválida"
+            CASO 1: (Lógica explícita en el sub-apartado 5.1)
+            CASO 2: (Lógica explícita en el sub-apartado 5.2)
+            CASO 3: (Lógica explícita en el sub-apartado 5.3)
+            CASO 4: (Lógica explícita en el sub-apartado 5.4)
+            CASO 5: (Lógica explícita en el sub-apartado 5.5)
+            CASO 0: MOSTRAR "¡Hasta luego!"; ROMPER (break)
+            POR DEFECTO: MOSTRAR "Opción inválida"; ROMPER (break)
     
     MIENTRAS opcion != 0
 ```
@@ -293,38 +301,37 @@ FUNCIÓN main():
 
 Marca cada ítem cuando lo implementes en tu código C++:
 
-- [ ] Declarar `const int MAX_EQUIPOS = 10;`
-- [ ] Declarar la `struct Equipo` con todos sus campos
-- [ ] Declarar el arreglo global `equipos[]` y `numEquipos`
-- [ ] Implementar `registrarEquipo()` → usa `for` para recorrer y verificar duplicados
-- [ ] Implementar `registrarPartido()` → usa `if-else` para determinar resultado
-- [ ] Implementar `mostrarTabla()` → usa `for`
-- [ ] Implementar `buscarEquipo()` → usa `while`
-- [ ] Implementar `mostrarCampeon()` → usa `for`
-- [ ] Implementar el menú en `main()` → usa `do-while` + `switch`
+- [x] Declarar la constante `MAX_EQUIPOS = 4` junto con su validación limitante
+- [x] Declarar `numEquipos` y el bloque rígido de 32 variables independientes (`e1_nombre... e4_puntos`)
+- [x] Implementar Lógica Caso 1 (Registrar) → Crear condiciones `if-else` en cascada en lugar de `for` (máx 4 equipos)
+- [x] Implementar Lógica Caso 2 (Partidos) → Ruteo masivo condicional para actualizar las variables atómicas indicadas
+- [x] Implementar Lógica Caso 3 (Mostrar Tabla) → Imprimir y concatenar variables de cada uno de los 4 turnos fijos
+- [x] Implementar Lógica Caso 4 (Buscar Equipo) → Evaluar comparación de Strings de manera independiente y correlativa
+- [x] Implementar Lógica Caso 5 (Campeón) → Evaluar cuál de las cuatro variables aisladas de puntos es la mayor
+- [x] Envolver toda la funcionalidad monolítica dentro del `do-while` y las sentencias directas del `switch` en el `main()`
 
 ---
 
 ## FASE 7: Commits Sugeridos (Git)
 
-Al terminar cada función, haz un commit:
+Al terminar cada caso de uso, haz un commit detallando tu bloque de avance:
 
 ```bash
 git add proyecto4.cpp
-git commit -m "HU-01: Función registrarEquipo() implementada"
+git commit -m "HU-01: Lógica del Caso 1 (Registro) implementada con condicionales puros"
 
-git commit -m "HU-02: Función registrarPartido() con lógica de puntos"
+git commit -m "HU-02: Lógica del Caso 2 (Partidos) completada mapeando variables independientes"
 
-git commit -m "HU-03: Tabla de posiciones funcionando"
+git commit -m "HU-03: Tabla de posiciones maquetada manualmente desde variables atómicas"
 
-git commit -m "HU-04: Búsqueda de equipo por nombre"
+git commit -m "HU-04: Motor de búsqueda lineal individual escrito"
 
-git commit -m "HU-05: Función mostrarCampeon() completada"
+git commit -m "HU-05: Lógica del Caso 5 para determinar el campeón terminada"
 
-# Sprint Review: merge a main
+# Sprint Review: Mapeo y cierre visual colaborativo
 git checkout main
-git merge sprint/2-consultas
-git commit -m "Sprint 2 completo: sistema de torneo finalizado ✅"
+git merge feature/HU-01-registro-equipos
+git commit -m "Sprint cerrado: Sistema de torneo monolítico estable sin arreglos ✅"
 ```
 
 ---
@@ -337,10 +344,10 @@ git commit -m "Sprint 2 completo: sistema de torneo finalizado ✅"
 3. Comparte el repositorio con Marco y Miriam.
 
 **Luego cada integrante:**
-1. Clona el repositorio y cambia a su rama.
-2. Lee `funciones.md` para entender struct, arreglos y funciones.
-3. Lee las PISTAS en `proyecto4.cpp` para su función asignada.
-4. Implementa el código y hace commit.
-5. Crea un Pull Request para que otro revise antes de hacer merge.
+1. Clona el repositorio y cambia a su rama asignada trabajando individualmente.
+2. Lee la Estructura de Datos (Fase 1) para comprender por qué se declaran tantas variables y cómo se mapea la información.
+3. Abre el archivo `proyecto4.cpp`, busca el bloque del `CASO` del menú que te fue asignado e implementa las cascadas manuales.
+4. Recuerda que no puedes declarar arrays ni for-loops; todo se resuelve lógicamente. Haz commits seguidos de tus avances.
+5. Crea el respectivo Pull Request para que tus otros dos compañeros verifiquen que la lógica estricta no se interrumpió y procedan con su validación en Local (merge).
 
-¡Mucho éxito al equipo! 🚀
+¡Mucho éxito al equipo enfrentando este interesante reto algorítmico! 🚀

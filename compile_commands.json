@@ -1,0 +1,12 @@
+[
+  {
+    "directory": "c:/Users/WIGUSA/Documents/GitHub/nomada_bootcamp/project/torneo-futbol-p4",
+    "command": "C:/msys64/mingw64/bin/g++.exe -std=c++17 -c project_04.cpp",
+    "file": "c:/Users/WIGUSA/Documents/GitHub/nomada_bootcamp/project/torneo-futbol-p4/project_04.cpp"
+  },
+  {
+    "directory": "c:/Users/WIGUSA/Documents/GitHub/nomada_bootcamp/project/torneo-futbol-p4",
+    "command": "C:/msys64/mingw64/bin/g++.exe -std=c++17 -c proyecto4.cpp",
+    "file": "c:/Users/WIGUSA/Documents/GitHub/nomada_bootcamp/project/torneo-futbol-p4/proyecto4.cpp"
+  }
+]
