@@ -1,66 +1,11 @@
-# 🏆 Guía del Proyecto 4: Simulador de Torneo de Fútbol
+# 🏆 Proyecto 4: Simulador de Torneo de Fútbol
 
-> Esta guía te llevará paso a paso aplicando metodología **Scrum** para organizar el trabajo y **Git** para versionar el código. Tú escribirás todo el código C++; yo te proporciono los diagramas y el pseudocódigo como planos.
-
----
-
-## FASE 0: Organización con Scrum y Git
-
-### El Equipo: 3 Integrantes, 3 Roles Scrum
-| Rol | Responsabilidad |
-|-----|-----------------|
-| **Product Owner** | Define qué se construye y en qué orden. Prioriza el backlog. |
-| **Scrum Master** | Facilita las reuniones, elimina bloqueos, protege al equipo. |
-| **Developer** | Escribe el código. En un equipo pequeño, todos programan. |
-
-> 💡 En equipos pequeños los 3 roles pueden repartirse así: 1 persona como Product Owner + Developer, 1 como Scrum Master + Developer, 1 como Developer puro.
-
----
-
-#### 🎯 Product Backlog con asignación de integrante
-| ID | Historia de Usuario | Prioridad | Responsable |
-|----|---------------------|-----------|-------------|
-| HU-01 | Como usuario, quiero registrar equipos para el torneo | Alta | Wilmer Gulcochía |
-| HU-02 | Como usuario, quiero registrar el resultado de un partido | Alta | Marco Chile |
-| HU-03 | Como usuario, quiero ver la tabla de posiciones ordenada | Alta | Miriam Huamán |
-| HU-04 | Como usuario, quiero buscar un equipo por nombre | Media | Wilmer Gulcochía |
-| HU-05 | Como usuario, quiero ver el equipo campeón | Alta | Marco Chile |
-
-#### 🗓️ Sprint Planning: Dividimos en 2 Sprints
-**Sprint 1:** HU-01 (Wilmer), HU-02 (Marco) — trabajan en paralelo
-**Sprint 2:** HU-03 (Miriam), HU-04 (Wilmer), HU-05 (Marco) — trabajan en paralelo
-
----
-
-#### 🌿 Estrategia de Ramas Git para 3 personas
-
-Cada integrante trabaja en su propia rama y luego hace un **Pull Request** para que el equipo revise antes de fusionar.
-
-```bash
-# Wilmer (Product Owner) sube la estructura base a GitHub
-git add proyecto4.cpp
-git commit -m "feat: scaffold base del proyecto - stubs listos para el equipo"
-git push
-
-# Cada integrante clona y crea su propia rama desde main
-# Wilmer Gulcochía:
-git checkout -b feature/HU-01-registro-equipos
-
-# Marco Chile:
-git checkout -b feature/HU-02-registro-partidos
-
-# Miriam Huamán:
-git checkout -b feature/HU-03-tabla-posiciones
-```
-
-**Flujo de Pull Request (como en GitHub):**
-1. Cada uno termina su función y hace commit en su rama.
-2. Sube su rama: `git push origin feature/HU-01-registro-equipos`
-3. Abre un **Pull Request** en GitHub.
-4. Otro integrante revisa el código y aprueba.
-5. Se fusiona a `main`.
-
----
+Entregables:
+1. Diagrama de flujo del registro de partidos
+2. Diagrama de flujo de actualización de puntos
+3. Pseudocódigo del sistema
+4. Código C++
+5. Ejecución del programa
 
 ## FASE 1: Estructura de Datos
 
@@ -297,57 +242,3 @@ PROGRAMA PRINCIPAL:
 
 ---
 
-## FASE 6: Checklist de Desarrollo (Tu guía al codificar)
-
-Marca cada ítem cuando lo implementes en tu código C++:
-
-- [x] Declarar la constante `MAX_EQUIPOS = 4` junto con su validación limitante
-- [x] Declarar `numEquipos` y el bloque rígido de 32 variables independientes (`e1_nombre... e4_puntos`)
-- [x] Implementar Lógica Caso 1 (Registrar) → Crear condiciones `if-else` en cascada en lugar de `for` (máx 4 equipos)
-- [x] Implementar Lógica Caso 2 (Partidos) → Ruteo masivo condicional para actualizar las variables atómicas indicadas
-- [x] Implementar Lógica Caso 3 (Mostrar Tabla) → Imprimir y concatenar variables de cada uno de los 4 turnos fijos
-- [x] Implementar Lógica Caso 4 (Buscar Equipo) → Evaluar comparación de Strings de manera independiente y correlativa
-- [x] Implementar Lógica Caso 5 (Campeón) → Evaluar cuál de las cuatro variables aisladas de puntos es la mayor
-- [x] Envolver toda la funcionalidad monolítica dentro del `do-while` y las sentencias directas del `switch` en el `main()`
-
----
-
-## FASE 7: Commits Sugeridos (Git)
-
-Al terminar cada caso de uso, haz un commit detallando tu bloque de avance:
-
-```bash
-git add proyecto4.cpp
-git commit -m "HU-01: Lógica del Caso 1 (Registro) implementada con condicionales puros"
-
-git commit -m "HU-02: Lógica del Caso 2 (Partidos) completada mapeando variables independientes"
-
-git commit -m "HU-03: Tabla de posiciones maquetada manualmente desde variables atómicas"
-
-git commit -m "HU-04: Motor de búsqueda lineal individual escrito"
-
-git commit -m "HU-05: Lógica del Caso 5 para determinar el campeón terminada"
-
-# Sprint Review: Mapeo y cierre visual colaborativo
-git checkout main
-git merge feature/HU-01-registro-equipos
-git commit -m "Sprint cerrado: Sistema de torneo monolítico estable sin arreglos ✅"
-```
-
----
-
-## ¿Por dónde empezar?
-
-**Wilmer (Product Owner):**
-1. Sube `proyecto4.cpp` (ya tiene el scaffold completo) al repositorio.
-2. Crea las ramas de cada integrante: `feature/HU-01`, `feature/HU-02`, `feature/HU-03`.
-3. Comparte el repositorio con Marco y Miriam.
-
-**Luego cada integrante:**
-1. Clona el repositorio y cambia a su rama asignada trabajando individualmente.
-2. Lee la Estructura de Datos (Fase 1) para comprender por qué se declaran tantas variables y cómo se mapea la información.
-3. Abre el archivo `proyecto4.cpp`, busca el bloque del `CASO` del menú que te fue asignado e implementa las cascadas manuales.
-4. Recuerda que no puedes declarar arrays ni for-loops; todo se resuelve lógicamente. Haz commits seguidos de tus avances.
-5. Crea el respectivo Pull Request para que tus otros dos compañeros verifiquen que la lógica estricta no se interrumpió y procedan con su validación en Local (merge).
-
-¡Mucho éxito al equipo enfrentando este interesante reto algorítmico! 🚀
