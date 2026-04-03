@@ -75,23 +75,13 @@ torneo-futbol-p4/
 
 | Documento | Contenido |
 |-----------|-----------|
-| [📘 Guía del Proyecto](docs/projecto4.md) | Backlog, Sprint Planning, ramas Git, diagramas de flujo y pseudocódigo completo |
-| [📙 Flujo de Trabajo Git](docs/github-workflow.md) | Paso a paso de cómo trabajar con ramas, commits y Pull Requests |
+| [📘 Guía del Proyecto](docs/projecto4.md) | Diagramas de flujo, pseudocódigo completo y código fuente |
 
 ---
 
-## 🌿 Estrategia de Ramas
+## 🌿 Flujo de Trabajo (Git)
 
-```bash
-main
-├── feature/HU-01-registro-equipos     ← Wilmer
-├── feature/HU-02-registro-partidos    ← Marco
-├── feature/HU-03-tabla-posiciones     ← Miriam
-├── feature/HU-04-buscar-equipo        ← Wilmer
-└── feature/HU-05-mostrar-campeon      ← Marco
-```
-
-Cada integrante trabaja en su rama y abre un **Pull Request** cuando termina su caso asignado.
+El desarrollo del proyecto se realizó de manera directa sobre la rama `main`, sincronizando los avances de funcionalidad mediante `git add`, `git commit` y `git push` regularmente de manera colaborativa para mantener un historial unificado y lineal de evolución del prototipo.
 
 ---
 
@@ -99,9 +89,9 @@ Cada integrante trabaja en su rama y abre un **Pull Request** cuando termina su 
 
 | # | Entregable | Ubicación | Estado |
 |---|-----------|-----------|--------|
-| 1 | Diagrama de flujo — Registro de partidos | [projecto4.md → FASE 3](docs/projecto4.md) | ✅ Listo |
-| 2 | Diagrama de flujo — Actualización de puntos | [projecto4.md → FASE 4](docs/projecto4.md) | ✅ Listo |
-| 3 | Pseudocódigo del sistema completo | [projecto4.md → FASE 5](docs/projecto4.md) | ✅ Listo |
+| 1 | Diagrama de flujo — Registro de partidos | [projecto4.md](docs/projecto4.md) | ✅ Listo |
+| 2 | Diagrama de flujo — Actualización de puntos | [projecto4.md](docs/projecto4.md) | ✅ Listo |
+| 3 | Pseudocódigo del sistema completo | [projecto4.md](docs/projecto4.md) | ✅ Listo |
 | 4 | Código C++ | `project_04.cpp` | ✅ Completado |
 | 5 | Ejecución del programa | Se graba al presentar | ⏳ Pendiente |
 
