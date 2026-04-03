@@ -46,6 +46,7 @@
 # Backup del archivo de práctica (no se comparte)
 proyecto4_backup.cpp
 proyecto4_backup_2.cpp
+proyecto4.cpp
 
 # Binarios compilados generados por g++
 proyecto4
