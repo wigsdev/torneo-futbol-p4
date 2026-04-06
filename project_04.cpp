@@ -56,6 +56,13 @@ int main() {
 
             string nombreTemp;
 
+            if (partidosJugados > 0) {
+                cout << "No puedes agregar equipos, el torneo ya comenzó." << endl;
+                cout << "Primero termina el torneo actual." << endl;
+                break;
+            
+            }
+
             if (numEquipos >= MAX_EQUIPOS) {
                 cout << "Límite de equipos alcanzado" << endl;
                 break;
@@ -213,6 +220,13 @@ int main() {
             }
 
             int indiceE1, indiceE2, golesE1, golesE2;
+            int confirmar;
+            cout << "\n¿Desea registrar un partido? (1 = Si / 0 = Volver): ";
+            cin >> confirmar;
+
+            if (confirmar == 0) {
+                break;            
+            }
 
             cout << "\nEquipo 1 (ingrese número): ";
             cin >> indiceE1;
@@ -557,22 +571,22 @@ int main() {
             }
 
             // Asumir que el primero es el campeón
-            string campeon_nombre;
+            string nombre_campeon;
             int max_puntos;
-            campeon_nombre = e1_nombre;
+            nombre_campeon = e1_nombre;
             max_puntos = e1_puntos;
 
             // comparar con los otros equipos si existen
             if (numEquipos >= 2 && e2_puntos > max_puntos) {
-                campeon_nombre = e2_nombre;
+                nombre_campeon = e2_nombre;
                 max_puntos = e2_puntos;
             }
             if (numEquipos >= 3 && e3_puntos > max_puntos) {
-                campeon_nombre = e3_nombre;
+                nombre_campeon = e3_nombre;
                 max_puntos = e3_puntos;
             }
             if (numEquipos >= 4 && e4_puntos > max_puntos) {
-                campeon_nombre = e4_nombre;
+                nombre_campeon = e4_nombre;
                 max_puntos = e4_puntos;
             }
 
@@ -591,11 +605,11 @@ int main() {
                 }
 
                 if (torneoTerminado == true) {
-                    cout << "🏆 ¡EL CAMPEÓN ES: " << campeon_nombre << " con " << max_puntos
+                    cout << "🏆 ¡EL CAMPEÓN ES: " << nombre_campeon << " con " << max_puntos
                          << " puntos";
 
                 } else {
-                    cout << "⌛EL LIDER ACTUAL ES: " << campeon_nombre << " con " << max_puntos
+                    cout << "⌛EL LIDER ACTUAL ES: " << nombre_campeon << " con " << max_puntos
                          << " puntos" << endl;
                     cout << "Se han jugado " << partidosJugados << "partidos de " << partidosTotales
                          << " partidos totales" << endl;
